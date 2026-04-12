@@ -34,7 +34,7 @@ Requisitos Não Funcionais (RNF)
 ####
 | ID | Descrição | 
 |:---|:---|
-| RF-01 | O sistema deve persistir os dados em um banco de dados relacional. | 
-| RF-02 | A interface deve ser responsiva para acesso via dispositivos móveis. | 
-| RF-03 | O backend deve ser desenvolvido utilizando arquitetura que separe as responsabilidades. | 
-| RF-04 | O tempo de carregamento dos gráficos não deve ultrapassar 3 segundos. | 
+| RNF-01 | O sistema deve persistir os dados em um banco de dados relacional. | 
+| RNF-02 | A interface deve ser responsiva para acesso via dispositivos móveis. | 
+| RNF-03 | O backend deve ser desenvolvido utilizando arquitetura que separe as responsabilidades. | 
+| RNF-04 | O tempo de carregamento dos gráficos não deve ultrapassar 3 segundos. | 
