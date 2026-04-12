@@ -38,3 +38,8 @@ Requisitos Não Funcionais (RNF)
 | RNF-02 | A interface deve ser responsiva para acesso via dispositivos móveis. | 
 | RNF-03 | O backend deve ser desenvolvido utilizando arquitetura que separe as responsabilidades. | 
 | RNF-04 | O tempo de carregamento dos gráficos não deve ultrapassar 3 segundos. | 
+
+### 5. Caso de uso
+
+<img width="1246" height="650" alt="image" src="https://github.com/user-attachments/assets/a22143a5-094e-4c69-9aa9-e7a98da5bcd7" />
+
