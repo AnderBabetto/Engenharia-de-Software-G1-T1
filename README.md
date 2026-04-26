@@ -43,3 +43,22 @@ Requisitos Não Funcionais (RNF)
 
 <img width="1246" height="650" alt="image" src="https://github.com/user-attachments/assets/a22143a5-094e-4c69-9aa9-e7a98da5bcd7" />
 
+
+
+
+
+
+### 6. Arquitetura do Projeto
+A arquitetura foi refinada para um modelo de serviços desacoplados (Poliglota), separando a interface web da lógica de processamento pesado de dados.
+
+1. Modelo C4
+   
+Representação da comunicação entre o Frontend (React), Backend (Node.js) e o Data Engine (Python).
+<img width="1024" height="737" alt="image" src="https://github.com/user-attachments/assets/625adb89-d838-411b-8e15-4fa244bd0867" />
+
+
+
+2. Justificativa Técnica
+
+Optou-se por separar a interface (HTML/JS/React) e a orquestração (Node.js) do motor de análise (Python/Pandas). Isso garante que o processamento dos dados da PNS e dos históricos de consumo não bloqueie a experiência do usuário, atendendo aos princípios de Separação de Preocupações da Engenharia de Software. Essa abordagem poliglota permite que cada serviço utilize a linguagem mais eficiente para sua tarefa específica.
+
