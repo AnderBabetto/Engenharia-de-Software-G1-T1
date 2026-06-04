@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EcoTrack Energy</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        .container { display: flex; gap: 20px; flex-wrap: wrap; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex: 1; min-width: 300px; }
+        input, button { padding: 10px; margin-top: 5px; width: 100%; box-sizing: border-box; }
+        button { background-color: #27ae60; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #2ecc71; }
+        .alert-error { color: #e74c3c; font-size: 0.9em; margin-top: 5px; }
+        .alert-warning { background-color: #e74c3c; color: white; padding: 10px; border-radius: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>EcoTrack Energy ⚡ - ODS 7</h1>
+    
+    <div class="alert-warning" id="alertaMeta">
+        Atenção: Sua meta de consumo mensal foi atingida/excedida!
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3>Adicionar Dispositivo</h3>
+            <label>Nome:</label>
+            <input type="text" id="nome" placeholder="Ex: Ar Condicionado">
+            <div id="erroNome" class="alert-error"></div>
+
+            <label>Potência (W):</label>
+            <input type="number" id="potencia" placeholder="Ex: 1200">
+            <div id="erroPotencia" class="alert-error"></div>
+
+            <button onclick="salvarDispositivo()">Salvar Dispositivo</button>
+        </div>
+
+        <div class="card">
+            <h3>Gasto Mensal Estimado</h3>
+            <h2>R$ <span id="gastoTotal">0.00</span></h2>
+            <hr>
+            <label>Definir Meta de Consumo (R$):</label>
+            <input type="number" id="meta" placeholder="Ex: 200" value="200">
+            <button onclick="atualizarMeta()">Salvar Meta</button>
+            <p id="msgMeta" style="color: #27ae60; display: none;">Meta atualizada com sucesso!</p>
+        </div>
+    </div>
+
+    <script>
+        let gastoAcumulado = 0;
+        let metaAtual = 200;
+
+        function salvarDispositivo() {
+            document.getElementById('erroNome').innerText = '';
+            document.getElementById('erroPotencia').innerText = '';
+
+            const nome = document.getElementById('nome').value;
+            const potencia = parseInt(document.getElementById('potencia').value);
+
+            // CT01.2 - Validação de campo vazio
+            if (!nome) {
+                document.getElementById('erroNome').innerText = 'O nome do dispositivo é obrigatório';
+                return;
+            }
+
+            // CT01.3 - Validação de limite numérico
+            if (!potencia || potencia <= 0) {
+                document.getElementById('erroPotencia').innerText = 'A potência deve ser um número inteiro positivo';
+                return;
+            }
+
+            // CT02.1 - Cálculo: (Potência em kW) * 2 horas * 30 dias * R$ 0.80
+            const gastoDispositivo = (potencia / 1000) * 2 * 30 * 0.80;
+            gastoAcumulado += gastoDispositivo;
+            
+            document.getElementById('gastoTotal').innerText = gastoAcumulado.toFixed(2);
+            document.getElementById('nome').value = '';
+            document.getElementById('potencia').value = '';
+            
+            verificarMeta();
+            alert('Dispositivo salvo com sucesso!'); // CT01.1
+        }
+
+        function atualizarMeta() {
+            metaAtual = parseFloat(document.getElementById('meta').value);
+            document.getElementById('msgMeta').style.display = 'block';
+            setTimeout(() => document.getElementById('msgMeta').style.display = 'none', 3000);
+            verificarMeta(); // CT03.1
+        }
+
+        function verificarMeta() {
+            const alerta = document.getElementById('alertaMeta');
+            // CT03.2 e CT03.3 - Alertas de limite
+            if (gastoAcumulado > metaAtual) {
+                alerta.style.display = 'block';
+            } else {
+                alerta.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
